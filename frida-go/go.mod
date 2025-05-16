@@ -1,4 +1,4 @@
-module frida_go
+module freego
 
 go 1.23.0
 
@@ -6,7 +6,6 @@ toolchain go1.23.9
 
 require (
 	github.com/a97077088/dylib v0.0.0-20210726041103-cf42039dadef
-	github.com/a97077088/frida-go v0.0.0-20210730162326-5858a01c2323
 	github.com/a97077088/libfridabinres v0.0.0-20220509035009-6d703145730f
 	github.com/json-iterator/go v1.1.12
 )
