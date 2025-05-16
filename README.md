@@ -1,0 +1,2 @@
+# fridago
+any platform 
