@@ -89,6 +89,10 @@ EXPORTS
     frida_version
     frida_version_string
     frida_device_manager_new
+    frida_device_manager_new_with_nonlocal_backends_only
+    frida_device_manager_new_with_socket_backend_only
+    frida_device_manager_construct_with_nonlocal_backends_only
+    frida_device_manager_construct_with_socket_backend_only
     frida_device_manager_close
     frida_device_manager_close_finish
     frida_device_manager_close_sync
@@ -126,7 +130,6 @@ EXPORTS
     frida_device_get_icon
     frida_device_get_dtype
     frida_device_get_bus
-    frida_device_get_manager
     frida_device_is_lost
     frida_device_query_system_parameters
     frida_device_query_system_parameters_finish
@@ -194,9 +197,12 @@ EXPORTS
     frida_device_open_channel
     frida_device_open_channel_finish
     frida_device_open_channel_sync
-    frida_device_get_host_session
-    frida_device_get_host_session_finish
-    frida_device_get_host_session_sync
+    frida_device_open_service
+    frida_device_open_service_finish
+    frida_device_open_service_sync
+    frida_device_unpair
+    frida_device_unpair_finish
+    frida_device_unpair_sync
     frida_remote_device_options_new
     frida_remote_device_options_get_certificate
     frida_remote_device_options_get_origin
@@ -253,8 +259,10 @@ EXPORTS
     frida_session_options_new
     frida_session_options_get_realm
     frida_session_options_get_persist_timeout
+    frida_session_options_get_emulated_agent_path
     frida_session_options_set_realm
     frida_session_options_set_persist_timeout
+    frida_session_options_set_emulated_agent_path
     frida_spawn_list_size
     frida_spawn_list_get
     frida_spawn_get_pid
@@ -273,15 +281,23 @@ EXPORTS
     frida_crash_get_summary
     frida_crash_get_report
     frida_crash_get_parameters
-    frida_bus_get_device
     frida_bus_is_detached
     frida_bus_attach
     frida_bus_attach_finish
     frida_bus_attach_sync
     frida_bus_post
+    frida_service_is_closed
+    frida_service_activate
+    frida_service_activate_finish
+    frida_service_activate_sync
+    frida_service_cancel
+    frida_service_cancel_finish
+    frida_service_cancel_sync
+    frida_service_request
+    frida_service_request_finish
+    frida_service_request_sync
     frida_session_get_pid
     frida_session_get_persist_timeout
-    frida_session_get_device
     frida_session_is_detached
     frida_session_detach
     frida_session_detach_finish
@@ -304,12 +320,9 @@ EXPORTS
     frida_session_compile_script
     frida_session_compile_script_finish
     frida_session_compile_script_sync
-    frida_session_enable_debugger
-    frida_session_enable_debugger_finish
-    frida_session_enable_debugger_sync
-    frida_session_disable_debugger
-    frida_session_disable_debugger_finish
-    frida_session_disable_debugger_sync
+    frida_session_snapshot_script
+    frida_session_snapshot_script_finish
+    frida_session_snapshot_script_sync
     frida_session_setup_peer_connection
     frida_session_setup_peer_connection_finish
     frida_session_setup_peer_connection_sync
@@ -327,10 +340,25 @@ EXPORTS
     frida_script_eternalize_finish
     frida_script_eternalize_sync
     frida_script_post
+    frida_script_enable_debugger
+    frida_script_enable_debugger_finish
+    frida_script_enable_debugger_sync
+    frida_script_disable_debugger
+    frida_script_disable_debugger_finish
+    frida_script_disable_debugger_sync
+    frida_snapshot_options_new
+    frida_snapshot_options_get_warmup_script
+    frida_snapshot_options_get_runtime
+    frida_snapshot_options_set_warmup_script
+    frida_snapshot_options_set_runtime
     frida_script_options_new
     frida_script_options_get_name
+    frida_script_options_get_snapshot
+    frida_script_options_get_snapshot_transport
     frida_script_options_get_runtime
     frida_script_options_set_name
+    frida_script_options_set_snapshot
+    frida_script_options_set_snapshot_transport
     frida_script_options_set_runtime
     frida_peer_options_new
     frida_peer_options_get_stun_server
@@ -350,7 +378,6 @@ EXPORTS
     frida_portal_options_set_certificate
     frida_portal_options_set_token
     frida_portal_options_set_acl
-    frida_portal_membership_get_id
     frida_portal_membership_terminate
     frida_portal_membership_terminate_finish
     frida_portal_membership_terminate_sync
@@ -382,10 +409,10 @@ EXPORTS
     frida_injector_recreate_thread_finish
     frida_injector_recreate_thread_sync
     frida_control_service_new
-    frida_control_service_new_with_host_session
-    frida_control_service_get_host_session
+    frida_control_service_new_with_device_finish
     frida_control_service_get_endpoint_params
     frida_control_service_get_options
+    frida_control_service_construct_with_device_finish
     frida_control_service_start
     frida_control_service_start_finish
     frida_control_service_start_sync
@@ -393,8 +420,10 @@ EXPORTS
     frida_control_service_stop_finish
     frida_control_service_stop_sync
     frida_control_service_options_new
+    frida_control_service_options_get_sysroot
     frida_control_service_options_get_enable_preload
     frida_control_service_options_get_report_crashes
+    frida_control_service_options_set_sysroot
     frida_control_service_options_set_enable_preload
     frida_control_service_options_set_report_crashes
     frida_portal_service_new
@@ -434,22 +463,36 @@ EXPORTS
     frida_file_monitor_disable
     frida_file_monitor_disable_finish
     frida_file_monitor_disable_sync
+    frida_compiler_new
+    frida_compiler_get_manager
+    frida_compiler_build
+    frida_compiler_build_finish
+    frida_compiler_build_sync
+    frida_compiler_watch
+    frida_compiler_watch_finish
+    frida_compiler_watch_sync
+    frida_compiler_options_new
+    frida_compiler_options_get_project_root
+    frida_compiler_options_get_source_maps
+    frida_compiler_options_get_compression
+    frida_compiler_options_set_project_root
+    frida_compiler_options_set_source_maps
+    frida_compiler_options_set_compression
+    frida_build_options_new
+    frida_watch_options_new
     frida_error_quark
     frida_runtime_get_type
     frida_device_type_get_type
-    frida_agent_message_kind_get_type
+    frida_source_maps_get_type
+    frida_js_compression_get_type
     frida_child_origin_get_type
-    frida_peer_setup_get_type
-    frida_port_conflict_behavior_get_type
     frida_realm_get_type
     frida_relay_kind_get_type
     frida_scope_get_type
     frida_script_runtime_get_type
     frida_session_detach_reason_get_type
+    frida_snapshot_transport_get_type
     frida_stdio_get_type
-    frida_unload_policy_get_type
-    frida_web_service_flavor_get_type
-    frida_web_service_transport_get_type
     frida_device_manager_get_type
     frida_device_list_get_type
     frida_device_get_type
@@ -470,8 +513,10 @@ EXPORTS
     frida_child_get_type
     frida_crash_get_type
     frida_bus_get_type
+    frida_service_get_type
     frida_session_get_type
     frida_script_get_type
+    frida_snapshot_options_get_type
     frida_script_options_get_type
     frida_peer_options_get_type
     frida_relay_get_type
@@ -487,6 +532,10 @@ EXPORTS
     frida_authentication_service_get_type
     frida_static_authentication_service_get_type
     frida_file_monitor_get_type
+    frida_compiler_get_type
+    frida_compiler_options_get_type
+    frida_build_options_get_type
+    frida_watch_options_get_type
     g_strlen
     g_error_get_message
     g_error_get_code
