@@ -1,9 +1,8 @@
 package floatpatch
 
 import (
+	"freego/dylib"
 	"testing"
-
-	"github.com/ying32/govcl/vcl/dylib"
 )
 
 var (

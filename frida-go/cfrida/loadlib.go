@@ -1,12 +1,13 @@
 package cfrida
 
 import (
-	"github.com/a97077088/dylib"
+	//"github.com/a97077088/dylib"
+	"freego/dylib"
 	"runtime"
 )
 
-var(
-	libfrida=loadUILib()
+var (
+	libfrida = loadUILib()
 )
 
 // 加载库
@@ -16,7 +17,7 @@ func loadUILib() *dylib.LazyDLL {
 	if support, newDLLPath := checkAndReleaseDLL(); support {
 		libName = newDLLPath
 	} else {
-		libName=libName
+		libName = libName
 	}
 	lib := dylib.NewLazyDLL(libName)
 	err := lib.Load()
@@ -32,8 +33,7 @@ func GetLibFrida() *dylib.LazyDLL {
 	return libfrida
 }
 
-
-func init(){
+func init() {
 	Frida_init()
 }
 

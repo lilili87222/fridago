@@ -1,3 +1,4 @@
+//go:build (windows || linux || darwin) && tempdll
 // +build windows linux darwin
 // +build tempdll
 
@@ -6,7 +7,7 @@ package cfrida
 import (
 	"bytes"
 	"fmt"
-	"github.com/a97077088/libfridabinres"
+	"freego/libfridabinres"
 	"hash/crc32"
 	"io"
 	"io/ioutil"
