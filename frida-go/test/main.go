@@ -35,7 +35,7 @@ func listDevices() {
 func listUsbDevices() {
 	dm := gofrida.DeviceManager_Create()
 	//d, err := dm.FindDeviceByType(gofrida.DeviceType_USB, 1000)
-	d, err := dm.FindDeviceById("", 1000)
+	d, err := dm.FindDeviceById("8d8421ec89d1b323186308907a9cb50a1ea45cd8", 1000)
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
